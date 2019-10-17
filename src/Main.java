@@ -1,3 +1,6 @@
+import entities.Adress;
+import entities.HomeAdress;
+import entities.Person;
 import enums.Days;
 import entities.Student;
 import org.hibernate.Session;
@@ -28,8 +31,11 @@ public class Main {
         }
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(new Student("Maxim 2", new Date(81, 11, 29), Days.MONDAY));
-        session.save(new Student("Vladimir 3", new Date(81, 11, 29), Days.SATURDAY));
+        HomeAdress homeAdress = new HomeAdress("New York", "Volkov", 14, 5);
+        Person person = new Person("Vasya", homeAdress);
+
+        session.persist(person);
+        session.persist(homeAdress);
         session.getTransaction().commit();
         session.close();
     }
