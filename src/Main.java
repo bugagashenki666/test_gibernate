@@ -10,6 +10,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 
@@ -31,11 +33,17 @@ public class Main {
         }
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        List<HomeAdress> adressList = new LinkedList<>();
         HomeAdress homeAdress = new HomeAdress("New York", "Volkov", 14, 5);
-        Person person = new Person("Vasya", homeAdress);
-
-        session.persist(person);
+        adressList.add(homeAdress);
+        HomeAdress homeAdress2 = new HomeAdress("New York", "Lenina", 66, 6);
+        adressList.add(homeAdress2);
+        Person person = new Person("Vasya", adressList);
+        homeAdress.setPerson(person);
+        homeAdress2.setPerson(person);
         session.persist(homeAdress);
+        session.persist(homeAdress2);
+        session.persist(person);
         session.getTransaction().commit();
         session.close();
     }

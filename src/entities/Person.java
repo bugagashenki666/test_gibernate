@@ -1,9 +1,10 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -12,13 +13,13 @@ public class Person {
     @GeneratedValue
     int id;
     String name;
-    @OneToOne
-    HomeAdress homeAdress;
+    @OneToMany(mappedBy = "person")
+    List<HomeAdress> homeAdress;
 
     public Person() {
     }
 
-    public Person(String name, HomeAdress homeAdress) {
+    public Person(String name, List<HomeAdress> homeAdress) {
         this.name = name;
         this.homeAdress = homeAdress;
     }
@@ -39,11 +40,11 @@ public class Person {
         this.name = name;
     }
 
-    public HomeAdress getHomeAdress() {
+    public List<HomeAdress> getHomeAdress() {
         return homeAdress;
     }
 
-    public void setHomeAdress(HomeAdress homeAdress) {
+    public void setHomeAdress(List<HomeAdress> homeAdress) {
         this.homeAdress = homeAdress;
     }
 }

@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class HomeAdress {
@@ -13,6 +14,12 @@ public class HomeAdress {
     String street;
     int house;
     int flat;
+    @ManyToOne
+    Person person;
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public HomeAdress() {
     }
